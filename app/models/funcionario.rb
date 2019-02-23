@@ -10,9 +10,9 @@ class Funcionario < Sequel::Model(:funcionarios)
       ativo
         .join(:status, id: :status_id)
         .por_ids(params[:ids])
-        .select(Sequel[:funcionarios][:id], :nome, :status)
         .order(:nome)
         .por_pagina(params[:pagina], params[:tamanho])
+        .select(:nome, :email, :status)
     end
 
     def por_empresa(empresa_id)

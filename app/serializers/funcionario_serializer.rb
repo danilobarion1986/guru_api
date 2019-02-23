@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class FuncionarioSerializer < ActiveModel::Serializer
-  attributes %i[id nome status]
+  attributes %i[nome email status]
 
   def status
-    object.object[:status]
+    object[:status]
   end
 end
+
