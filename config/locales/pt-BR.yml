@@ -1,0 +1,11 @@
+pt-BR:
+  sequel:
+    not_found: '%{model} - Not Found'
+  errors:
+    lteq?: 'Formato inválido, tamanho máximo excedido'
+    int?: 'Formato inválido, deve ser um inteiro'
+    str?: 'Formato inválido, deve ser uma string'
+    array?: 'Formato inválido, deve ser um array'
+    gt?: 'Formato inválido, tamanho mínimo não atendido'
+    date?: 'Formato inválido, deve ser uma data'
+    filled?: 'Formato inválido'

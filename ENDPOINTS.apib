@@ -1,0 +1,175 @@
+FORMAT: 1A
+
+HOST: http://requisicao-service.vagas-prod.net/v1
+
+# API de Requisições de Vagas
+
+## Group Requisição de Vagas
+
+### Permissoes [GET /requisicoes/permissoes/]
+Retorna informações sobre as permissoes do usuário no sistema de requisição de vagas
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+            X-USER-ID: 789
+
++ Response 200 (application/json)
+  + Attributes
+      + cadastrar_requisitante: `false` (boolean)
+      + criar_requisicao: `false` (boolean)
+      + cadastrar_pessoas_aprovacao_bloco: `false` (boolean)
+      + acompanhar_requisicao: `false` (boolean)
+
+### Listagem [GET /requisicoes]
+Retorna informações sobre as requições de vagas
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+            X-USER-ID: 789
+
++ Parameters
+    + id: `269646` (number, optional)
+    + status: `cancelada` (array[string], optional)
+       + Members
+         + reprovada
+         + processo_de_aprovacao
+         + aprovada_com_vaga
+         + aprovada_sem_vaga
+         + aguardando_pre_aprovacao
+         + reprovada_pre_aprovacao
+         + aguardando_definicao
+         + aguardando_envio
+         + cancelada
+    + q: `Requisição` (string, optional)
+    + nome: `Requisição 01` (string, optional)
+    + area: `Comercial` (string, optional)
+    + responsaveis_id: `34` (array[number], optional)
+    + requisitantes_id: `10` (array[number], optional)
+    + data_inicial: `2016-04-10` (date, optional)
+    + data_final: `2016-04-15` (date, optional)
+    + pagina: `1` (number, optional)
+    + tamanho: `1` (number, optional)
+
++ Response 200 (application/json)
+  + Attributes (object)
+      + id: `311428` (number)
+      + nome: `Requisição de Vaga 01` (string)
+      + data: `2018-08-10` (string) Timestamp
+      + responsavel_requisitante (object)
+         + id: `30` (number)
+         + nome: `Regina` (string)
+      + vaga_id: `10` (number)
+      + requisitante: `Emilio Silva` (string)
+      + status_aprovacao (object)
+         + status: `aprovado-sem-vaga` (string)
+      + quantidade_dias: `30` (number)
+      + acoes(object)
+         + rapidas (object)
+             + primario: `definir-fluxo-aprovacao` (string)
+             + secundario: `ver-requisicao` (string)
+         + outras: `ver-requisicao`, `alterar-usuario-responsavel`, `aprovacao-direta-rh` (array[string])
+
+## Group Responsáveis
+
+### Listagem [GET /requisicoes/responsaveis]
+Retorna uma lista de responsáveis
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+            X-USER-ID: 789
+
++ Parameters
+    + ids: `[224009]` (array[number], optional)
+    + nome: `Rafael` (string, optional)
+    + pagina: `1` (number, optional)
+    + tamanho: `20` (number, optional)
+
++ Response 200 (application/json)
+  + Attributes (object)
+      + id: `302271` (number)
+      + nome: `Responsável 01` (string)
+
+## Group Requisitantes
+
+### Listagem [GET /requisicoes/requisitantes]
+Retorna uma lista de requisitantes
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+            X-USER-ID: 789
+
++ Parameters
+    + ids: `[47311]` (array[number], optional)
+    + nome: `Requisitante 01` (string, optional)
+    + pagina: `1` (number, optional)
+    + tamanho: `20` (number, optional)
+
++ Response 200 (application/json)
+  + Attributes (object)
+      + id: `302271` (number)
+      + nome: `Requisitante 01` (string)
+
+## Group Status
+
+### Listagem [GET /requisicoes/status]
+retorna uma lista de status
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+
++ Response 200 (application/json)
+  + Attributes (object)
+      + id: `-1000` (number)
+      + status: `cancelado` (string)
+
+## Group Fluxo de aprovação
+
+### Listagem [GET /requisicoes/:requisicao_id/fluxo_aprovacao]
+retorna a cadeia de aprovação, junto aos dados gerais da requisição
+
++ Request
+  + Headers
+            X-COMPANY-ID: 123
+            X-USER-ID: 789
+
++ Parameters
+  + requisicao_id: `1222` (number, required) Código da requisição
+
++ Response 200 (application/json)
+  + Attributes (object)
+      + fluxo_aprovacao (object)
+         + 
+         + requisicao_id: `1222` (number)
+         + nome: `Representante Comercial HCI - Vaga Aberta! (Leandra FOCO SP)` (string)
+         + nome_em_copia: `SIMONE LAGO B BORGES PEDROSO` (string)
+         + email_em_copia: `simone.lago@itau-unibanco.com.br` (string)
+         + nome_requisitante: `DANIEL NERY LEITE` (string)
+         + nome_requisitante: `daniel.nery@unibanco.com.br` (string)
+         + nome_responsavel: `ANA FLAVIA RODRIGUES` (string)
+         + email_responsavel: `ana.flavia@itau-unibanco.com.br` (string)
+         + status: 1000 (number)
+         + responsavel_cancelamento: `null` (string)
+         + motivo_cancelamento_id: `-1` (number)
+         + outro_motivo_cancelamento: `null` (string)
+         + aprovado_em_pre_aprovacao: true (boolean)
+         + alterar_usuario_aviso_automatico: false (boolean)
+         + nome_criador_vaga: `ADMINISTRADOR` (string)
+         + email_criador_vaga: `carla.tortorelli@itau-unibanco.com.br` (string)
+         + data_criacao_requisicao: 2006-12-20 09:23` (string) Timestamp
+         + data_cancelamento: `2006-12-20 09:23` (string) Timestamp
+         + data_criacao_vaga: `2006-12-20 09:23` (string) Timestamp
+         + data_envio: `2006-12-20 09:23` (string) Timestamp
+         + cadeia_aprovacao: (array, fixed)
+             + (object)
+                 + index: `-1150` (number)
+                 + nome_aprovador: `Ana Flavia Rodrigues` (string)
+                 + email_aprovador: `ana.flavia@unibanco.com.br` (string)
+                 + data_envio_email: `2006-11-16 16:43` (string) Timestamp
+                 + data_avaliacao: `2006-11-16 16:51` (string) Timestamp
+                 + status_aprovacao: `aprovada` (string)
+                 + justificativa: `null` (string)

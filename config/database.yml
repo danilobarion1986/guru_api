@@ -1,0 +1,8 @@
+<%= ENV['RAILS_ENV'] %>:
+  adapter: tinytds
+  mode: dblib
+  timeout: 180000
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  database: <%= ENV.fetch("DB_DATABASE") %>
+  host: <%= ENV.fetch("DB_HOST") %>
