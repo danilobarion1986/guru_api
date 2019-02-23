@@ -1,7 +1,7 @@
 test:
-  empresas_service:
-    host: http://http://172.16.14.65
+  servico:
+    host: localhost:3002
 
 development:
-  empresas_service:
-    host: http://172.16.14.65
+  servico:
+    host: localhost:3003
